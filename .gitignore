@@ -1,0 +1,20 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Cypress
+cypress/node_modules/
+cypress/screenshots/
+cypress/videos/
+
+# WebdriverIO
+webdriverio/node_modules/
+webdriverio/screenshots/
+webdriverio/videos/
+
+#Selenium
+selenium/java/target/
