@@ -18,3 +18,4 @@ webdriverio/videos/
 
 #Selenium
 selenium/java/target/
+selenium/python/__pycache__/

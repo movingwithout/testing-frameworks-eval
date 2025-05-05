@@ -1,11 +1,10 @@
-describe('My First Test', () => {
-  it('Visits the Kitchen Sink', () => {
-    cy.visit('https://example.cypress.io')
-    cy.contains('type').click()
-    cy.url().should('include', '/commands/actions')
-    // Get an input, type into it
-    cy.get('.action-email').type('fake@email.com')
-    //  Verify that the value has been updated
-    cy.get('.action-email').should('have.value', 'fake@email.com')
+describe('Login Test', () => {
+  it('Successfully logs in to the internet', () => {
+    cy.visit('https://the-internet.herokuapp.com/login')
+    cy.get('#username').type('tomsmith')
+    cy.get('#password').type('SuperSecretPassword!')
+    cy.get('button[type="submit"]').click()
+    cy.get('#flash').should('contain', 'You logged into a secure area!')
+    cy.get('h2').should('contain', 'Secure Area')
   })
 })
