@@ -1,5 +1,5 @@
 import type { Page, Locator } from '@playwright/test';
-import { config } from '../playwright.config';
+import { config } from '../../playwright.config';
 
 export class LoginPage {
   private readonly usernameInput: Locator;

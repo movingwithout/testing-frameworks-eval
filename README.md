@@ -4,17 +4,19 @@ Repository to experiment with popular testing frameworks against a shared [syste
 ## Project Structure
 ```md
 cypress/                        
-playwright/                     
-├── fixtures/                   Defines fixtures for use across project
-│   └── test.base.ts            Extend functionality of test fixture to instantiate page objects
-├── pages/                      Folder containing lower level models abstrating individual pages/components
-│   └── LoginPage.ts            Models the Login page
-├── tests/                      Folder containing all test specs
-│   └── login.spec.ts           Tests for Login Scenarios
-└── playwright.config.ts        Global Playwright Test Configuration
+playwright/
+├── src/ 
+│   ├── fixtures/                   Defines fixtures for use across project
+│   │   └── test.base.ts            Extend functionality of test fixture to instantiate page objects
+│   └── pages/                      Folder containing pages/components object models to abstract detail
+│       ├── LoginPage.ts            Models the Login page
+│       └── SecureAreaPage.ts       Models the Secure Area page
+├── tests/                          Folder containing all test specs
+│   └── login.spec.ts               Tests for Login Scenarios
+└── playwright.config.ts            Global Playwright Test Configuration
 selenium/                       
-├── java/                       Selenium using Java
-└── python/                     Selenium using Python
+├── java/                           Selenium using Java
+└── python/                         Selenium using Python
 webdriverio/
 README.md
 ```
