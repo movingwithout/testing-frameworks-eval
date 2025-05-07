@@ -24,8 +24,8 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
-  // Overkill, not optimal, but demonstrates a dynamic locator
-  // Incidentally the fact login error reveals the field which is invalid, e.g. username or password, is surely a security vulnerability
+  // Not optimal, but demonstrates usage of a dynamic locator
+  // Incidentally, login error revealing the field which is invalid, e.g. username or password, would likely be a security vulnerability
   getInvalidInputFieldFlashError(field: 'username' | 'password') {
     return this.invalidInputFieldFlashError(field);
   }

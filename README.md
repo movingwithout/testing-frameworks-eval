@@ -43,6 +43,7 @@ npx playwright test
 #### Selenium - Java
 ```
 cd .\selenium\java\
+mvn clean install
 mvn test
 ```
 #### Selenium - Python

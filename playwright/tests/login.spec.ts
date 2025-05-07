@@ -2,6 +2,9 @@ import { expect } from '@playwright/test';
 import { test } from '../src/fixtures/test.base';
 import { config } from '../playwright.config';
 
+// Publicly available for test site otherwise would be in secrets manager
+const USERNAME = 'tomsmith';
+const PASSWORD = 'SuperSecretPassword!'; 
 
 test.describe('Login Tests', { tag: ['@login'] }, () => {
 
@@ -13,7 +16,7 @@ test.describe('Login Tests', { tag: ['@login'] }, () => {
     });
 
     await test.step('Attempt Login - Valid Credentials', async () => {
-      await loginPage.login({ username: 'tomsmith', password: 'SuperSecretPassword!' });
+      await loginPage.login({ username: USERNAME, password: PASSWORD });
     });
 
     await test.step('Assert Login Success', async () => {
@@ -30,7 +33,7 @@ test.describe('Login Tests', { tag: ['@login'] }, () => {
     });
 
     await test.step('Attempt Login - Invalid Username', async () => {
-      await loginPage.login({ username: 'fakeuser', password: 'SuperSecretPassword!' });
+      await loginPage.login({ username: 'fakeuser', password: PASSWORD });
     });
 
     await test.step('Assert Invalid Username Error', async () => {
@@ -46,7 +49,7 @@ test.describe('Login Tests', { tag: ['@login'] }, () => {
     });
 
     await test.step('Attempt Login - Invalid Password', async () => {
-      await loginPage.login({ username: 'tomsmith', password: 'FakePassword1!' });
+      await loginPage.login({ username: USERNAME, password: 'FakePassword1!' });
     });
 
     await test.step('Assert Invalid Password Error', async () => {
@@ -54,6 +57,39 @@ test.describe('Login Tests', { tag: ['@login'] }, () => {
     });
 
   });
+
+  test('Login Failure - Missing Username', { tag: ['@negative-test'] }, async ({ loginPage }) => {
+
+    await test.step('Navigate to Login Page', async () => {
+      await loginPage.goto();
+    });
+
+    await test.step('Attempt Login - Missing Username', async () => {
+      await loginPage.login({ password: PASSWORD });
+    });
+
+    await test.step('Assert Invalid Username Error', async () => {
+      await expect(loginPage.getInvalidInputFieldFlashError('username')).toBeVisible();
+    });
+
+  });
+
+  test('Login Failure - Missing Password', { tag: ['@negative-test'] }, async ({ loginPage }) => {
+
+    await test.step('Navigate to Login Page', async () => {
+      await loginPage.goto();
+    });
+
+    await test.step('Attempt Login - Missing Password', async () => {
+      await loginPage.login({ username: USERNAME });
+    });
+
+    await test.step('Assert Invalid Password Error', async () => {
+      await expect(loginPage.getInvalidInputFieldFlashError('password')).toBeVisible();
+    });
+
+  });
+
 
 });
 
@@ -78,7 +114,7 @@ test.describe('Logout Tests', { tag: ['@logout'] }, () => {
        * when generating the authenticated session cookie.
        */
       const response = await page.request.post(`${config.theInternetURL}/authenticate`, {
-        form: { username: 'tomsmith', password: 'SuperSecretPassword!' },
+        form: { username: USERNAME, password: PASSWORD },
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Accept-Language': locale ?? 'en-US', 
